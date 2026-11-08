@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Packaging Portfolio | Anirudha Sharma</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* Section Layout - Matching Print Design Pattern */
+        .packaging-section {
+            padding: 160px 4% 100px;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .packaging-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .huge-name {
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: #fff;
+            text-transform: uppercase;
+            line-height: 0.9;
+        }
+
+        /* Grid System */
+        .packaging-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            row-gap: 100px;
+            max-width: 1400px;
+            width: 100%;
+            perspective: 1500px;
+        }
+
+        .pkg-item-container {
+            width: 100%;
+        }
+
+        .pkg-3d-stage {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #111;
+            border: 1px solid #222;
+            overflow: hidden;
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: crosshair;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pkg-image {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+        }
+
+        .pkg-details {
+            margin-top: 25px;
+            border-left: 1px solid #333;
+            padding-left: 15px;
+        }
+
+        .pkg-title {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .pkg-tag {
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid #333;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* Nav Fixes */
+        #nav-placeholder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        @media (max-width: 900px) {
+            .packaging-grid { grid-template-columns: 1fr; }
+            .packaging-section { padding-top: 120px; }
+        }
+    </style>
+</head>
+
+<body style="opacity: 0;">
+
+    <div id="nav-placeholder"></div>
+
+    <main>
+<section class="packaging-section">
+    <div class="packaging-header">
+        <h1 class="huge-name">Selected<br>Packaging</h1>
+    </div>
+
+    <div class="packaging-grid">
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/01.png" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Premium Box</h2><span class="pkg-tag">Packaging Design</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/01FRONT01.png" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Front View 01</h2><span class="pkg-tag">Mockup</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/01FRONT02.png" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Front View 02</h2><span class="pkg-tag">Mockup</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/02.1.png" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Revision 02.1</h2><span class="pkg-tag">Production Detail</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/02.png" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Package V2</h2><span class="pkg-tag">Final Export</span></div>
+        </div>
+
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/2835GIFT BOX .png" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">2835 Gift Box</h2><span class="pkg-tag">Premium Lighting</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/bag.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Carry Bag</h2><span class="pkg-tag">Branding</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/bag2.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Paper Bag</h2><span class="pkg-tag">Eco-Friendly</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/europa.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Europa Series</h2><span class="pkg-tag">Industrial</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/frameless.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Frameless Panel</h2><span class="pkg-tag">Lighting</span></div>
+        </div>
+
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/FRONT 01.png" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Main Facing</h2><span class="pkg-tag">Retail</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/FRONT 02.png" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Alt Facing</h2><span class="pkg-tag">Retail</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/napkin.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Napkin Pack</h2><span class="pkg-tag">Lifestyle</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/office light.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Office Solution</h2><span class="pkg-tag">Commercial</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/pizza1.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Pizza Box 01</h2><span class="pkg-tag">Food & Bev</span></div>
+        </div>
+
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/pizza2.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Pizza Box 02</h2><span class="pkg-tag">Food & Bev</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/rope.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Rope Light</h2><span class="pkg-tag">Flexible</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/SCOB STRIP BOX copy.png" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">SCOB Strip</h2><span class="pkg-tag">Hardware</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/SCOB_GIFT BOX copy.png" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">SCOB Gift</h2><span class="pkg-tag">Promotion</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/silo.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Silo Pack</h2><span class="pkg-tag">Minimalist</span></div>
+        </div>
+
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/SLIM STRIP BOX copy.png" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Slim Strip</h2><span class="pkg-tag">Compact</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/smd.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">SMD Tech</h2><span class="pkg-tag">Components</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/ssr.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">SSR Series</h2><span class="pkg-tag">Electronics</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/star panel image.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Star Panel</h2><span class="pkg-tag">Interior</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/strip 10 meter.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">10M Strip</h2><span class="pkg-tag">Large Format</span></div>
+        </div>
+
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/strip 240l.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">240L Strip</h2><span class="pkg-tag">Lighting</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/table matt.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Table Mat</h2><span class="pkg-tag">Product Pack</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/tape roll.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Tape Roll</h2><span class="pkg-tag">Adhesive</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/twist.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Twist Pack</h2><span class="pkg-tag">Specialty</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/ventiliation.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Exhaust Fan</h2><span class="pkg-tag">Home Utility</span></div>
+        </div>
+
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/wire box white.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Wire Box White</h2><span class="pkg-tag">B2B</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/wire box.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Standard Wire</h2><span class="pkg-tag">Cables</span></div>
+        </div>
+        <div class="pkg-item-container">
+            <div class="pkg-3d-stage" data-tilt><img src="image/pkg_mockup/wire pkg1.webp" class="pkg-image"></div>
+            <div class="pkg-details"><h2 class="pkg-title">Premium Cable</h2><span class="pkg-tag">Electrical</span></div>
+        </div>
+    </div>
+</section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="script.js"></script>
+
+    <script>
+        window.addEventListener('load', () => {
+            gsap.to("body", { opacity: 1, duration: 0.5 });
+
+            // 3D Tilt Logic
+            const stages = document.querySelectorAll('[data-tilt]');
+            stages.forEach(stage => {
+                stage.addEventListener('mousemove', (e) => {
+                    const rect = stage.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const xTilt = (rect.width / 2 - x) / (rect.width / 2) * -10;
+                    const yTilt = (rect.height / 2 - y) / (rect.height / 2) * 10;
+
+                    gsap.to(stage, {
+                        rotateX: yTilt,
+                        rotateY: xTilt,
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                });
+
+                stage.addEventListener('mouseleave', () => {
+                    gsap.to(stage, {
+                        rotateX: 0,
+                        rotateY: 0,
+                        duration: 0.8,
+                        ease: "elastic.out(1, 0.5)"
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1581 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Motion &amp; Video Production | Anirudha Sharma</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Animation Libraries -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* Motion & Video Production - Cinematic Dark Aesthetic */
+        :root {
+            --mv-bg: #0c0d10;
+            --mv-card-bg: rgba(19, 21, 26, 0.85);
+            --mv-card-border: rgba(255, 255, 255, 0.08);
+            --mv-card-hover: rgba(244, 63, 94, 0.35);
+            --mv-rose: #f43f5e;
+            --mv-violet: #8e44ad;
+            --mv-amber: #f59e0b;
+            --mv-cyan: #06b6d4;
+            --mv-text-muted: #9aa2b1;
+            --mv-text-dim: #64748b;
+        }
+
+        body {
+            background-color: var(--mv-bg);
+            color: #ffffff;
+            font-family: "Lato", sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Fixed Navigation container */
+        #nav-placeholder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        #nav-placeholder nav {
+            background: rgba(12, 13, 16, 0.8);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Main Page Wrapper */
+        .mv-page-wrapper {
+            position: relative;
+            z-index: 10;
+            background-color: var(--mv-bg);
+            background-image: 
+                radial-gradient(circle at 10% 8%, rgba(244, 63, 94, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 20%, rgba(142, 68, 173, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 50% 65%, rgba(245, 158, 11, 0.05) 0%, transparent 40%);
+            padding-top: 100px;
+            padding-bottom: 40px;
+            min-height: auto;
+        }
+
+        .mv-container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 35px;
+        }
+
+        /* Top Breadcrumb & Status Bar */
+        .mv-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--mv-card-border);
+        }
+
+        .mv-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--mv-text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .mv-back-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .mv-back-btn:hover {
+            color: #ffffff;
+        }
+
+        .mv-back-btn:hover svg {
+            transform: translateX(-4px);
+        }
+
+        .mv-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 12px;
+            border-radius: 30px;
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid rgba(244, 63, 94, 0.35);
+            color: #fda4af;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .pulse-dot-rose {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--mv-rose);
+            box-shadow: 0 0 10px var(--mv-rose);
+            animation: pulseRose 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseRose {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.3); }
+        }
+
+        /* Hero Section */
+        .mv-hero {
+            padding: 10px 0 25px;
+        }
+
+        .mv-hero-pretitle {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--mv-rose);
+            margin-bottom: 10px;
+        }
+
+        .mv-hero-title {
+            font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+            font-weight: 300;
+            line-height: 1.05;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 18px;
+        }
+
+        .mv-hero-title .highlight-text {
+            font-weight: 700;
+            background: linear-gradient(120deg, #ffffff 15%, #fb7185 60%, #c084fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mv-hero-desc {
+            font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+            line-height: 1.55;
+            color: var(--mv-text-muted);
+            max-width: 860px;
+            font-weight: 300;
+            margin-bottom: 28px;
+        }
+
+        /* Metric Highlights Grid */
+        .mv-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .mv-metric-card {
+            background: var(--mv-card-bg);
+            border: 1px solid var(--mv-card-border);
+            border-radius: 14px;
+            padding: 18px 18px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .mv-metric-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(244, 63, 94, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+        }
+
+        .mv-metric-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: #fda4af;
+        }
+
+        .mv-metric-value {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #ffffff;
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        .mv-metric-label {
+            font-size: 12px;
+            color: var(--mv-text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            line-height: 1.3;
+        }
+
+        /* Section Divider */
+        .mv-divider {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, var(--mv-card-border), transparent);
+            margin: 35px 0;
+        }
+
+        /* Section Header */
+        .mv-section-header {
+            margin-bottom: 22px;
+        }
+
+        .mv-badge {
+            display: inline-block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: var(--mv-rose);
+            margin-bottom: 6px;
+        }
+
+        .mv-section-title {
+            font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .mv-section-subtitle {
+            font-size: 1rem;
+            color: var(--mv-text-muted);
+            max-width: 720px;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        /* Core Capabilities Grid (2 Columns) */
+        .mv-capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .mv-capability-card {
+            background: var(--mv-card-bg);
+            border: 1px solid var(--mv-card-border);
+            border-radius: 16px;
+            padding: 26px 24px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .mv-capability-card:hover {
+            border-color: rgba(244, 63, 94, 0.45);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .capability-num {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--mv-rose);
+            letter-spacing: 1.5px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.25);
+        }
+
+        .capability-icon-wrap {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--mv-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .mv-capability-card:hover .capability-icon-wrap {
+            background: var(--mv-rose);
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        .capability-card-title {
+            font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+            font-weight: 700;
+            line-height: 1.25;
+            color: #ffffff;
+        }
+
+        .capability-card-lead {
+            font-size: 0.94rem;
+            line-height: 1.5;
+            color: var(--mv-text-muted);
+            font-weight: 300;
+        }
+
+        /* Feature items */
+        .capability-features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .capability-feature-item {
+            padding: 12px 14px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .capability-feature-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .feature-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.96rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .feature-bullet {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--mv-rose);
+            flex-shrink: 0;
+        }
+
+        .feature-desc {
+            font-size: 0.88rem;
+            line-height: 1.45;
+            color: var(--mv-text-muted);
+            font-weight: 300;
+            padding-left: 13px;
+        }
+
+        /* Tags */
+        .card-pills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: auto;
+        }
+
+        .platform-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--mv-text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        /* Featured Reels Section */
+        .mv-reels-section {
+            margin-top: 45px;
+        }
+
+        /* 9:16 Responsive Reel Grid */
+        .reel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-top: 20px;
+        }
+
+        .reel-card {
+            background: var(--mv-card-bg);
+            border: 1px solid var(--mv-card-border);
+            border-radius: 18px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .reel-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(244, 63, 94, 0.4);
+            box-shadow: 0 20px 45px rgba(244, 63, 94, 0.15);
+        }
+
+        /* Standard 9:16 Aspect Ratio Container */
+        .reel-frame-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            background: #000000;
+            overflow: hidden;
+        }
+
+        .reel-frame-wrap iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Native Video Player inside 9:16 Frame */
+        .reel-native-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .reel-badge-overlay {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #ffffff;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .reel-badge-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--mv-rose);
+        }
+
+        /* Reel Card Meta Bar */
+        .reel-meta-content {
+            padding: 16px 18px;
+            background: rgba(18, 20, 26, 0.95);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .reel-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .reel-item-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+
+        .reel-item-desc {
+            font-size: 0.85rem;
+            line-height: 1.45;
+            color: var(--mv-text-muted);
+            font-weight: 300;
+        }
+
+        .reel-tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .reel-pill {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--mv-text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .reel-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            color: #fda4af;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            margin-top: 4px;
+        }
+
+        .reel-action-btn:hover {
+            background: var(--mv-rose);
+            color: #ffffff;
+            border-color: var(--mv-rose);
+        }
+
+        /* Call to Action Box */
+        .mv-cta-box {
+            margin-top: 45px;
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.12) 0%, rgba(142, 68, 173, 0.16) 100%);
+            border: 1px solid rgba(244, 63, 94, 0.35);
+            border-radius: 18px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .mv-cta-title {
+            font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+            color: #ffffff;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mv-cta-desc {
+            font-size: 1.05rem;
+            color: var(--mv-text-muted);
+            max-width: 620px;
+            margin: 0 auto 25px;
+            line-height: 1.5;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mv-cta-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mv-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffffff;
+            color: #0c0d10;
+            padding: 13px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.12);
+        }
+
+        .mv-btn-primary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        .mv-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            padding: 13px 26px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .mv-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(244, 63, 94, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Footer styling on subpage - prevents 100vh empty void */
+        .reveal-footer {
+            position: relative !important;
+            height: auto !important;
+            min-height: 400px;
+            padding: 60px 0 40px !important;
+            background-color: #1c1d20 !important;
+            z-index: 10 !important;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 1024px) {
+            .mv-metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .mv-capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+            .reel-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mv-container {
+                padding: 0 20px;
+            }
+            .mv-page-wrapper {
+                padding-top: 85px;
+                padding-bottom: 30px;
+            }
+            .mv-hero {
+                padding: 5px 0 20px;
+            }
+            .mv-metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            .mv-capability-card {
+                padding: 20px 18px;
+            }
+            .reel-grid {
+                grid-template-columns: 1fr;
+                max-width: 420px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .mv-cta-box {
+                padding: 30px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Global Navigation -->
+    <div id="nav-placeholder">
+        <nav>
+            <div class="nav-left">
+                <a href="index.html" class="home-link">
+                    <svg class="home-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>© Code by Anirudha</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <div class="links-desktop">
+                    <a href="index.html#work" class="nav-link">Work</a>
+                    <a href="index.html#about" class="nav-link">About</a>
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="mobile-menu">
+            <div class="menu-content">
+                <div class="menu-label">Navigation</div>
+                <div class="menu-links">
+                    <div class="menu-item"><a href="index.html">Home</a></div>
+                    <div class="menu-item"><a href="index.html#work">Work</a></div>
+                    <div class="menu-item"><a href="index.html#about">About</a></div>
+                    <div class="menu-item"><a href="index.html#contact">Contact</a></div>
+                </div>
+                <div class="menu-footer">
+                    <p>Socials</p>
+                    <div class="menu-social-links">
+                        <a href="#">Instagram</a>
+                        <a href="#">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-toggle" id="menuToggle">
+            <div class="hamburger-inner">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Page Wrapper -->
+    <main class="mv-page-wrapper">
+        <div class="mv-container">
+
+            <!-- Breadcrumb Navigation Bar -->
+            <div class="mv-top-bar">
+                <a href="index.html#work" class="mv-back-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    <span>Back to Selected Work</span>
+                </a>
+                <div class="mv-status-badge">
+                    <span class="pulse-dot-rose"></span>
+                    <span>Motion &amp; Video Production</span>
+                </div>
+            </div>
+
+            <!-- Hero Section -->
+            <section class="mv-hero">
+                <span class="mv-hero-pretitle">Cinematic Visuals &bull; After Effects &bull; AI Voiceover</span>
+                <h1 class="mv-hero-title">
+                    Motion &amp; <br>
+                    <span class="highlight-text">Video Production</span>
+                </h1>
+                <p class="mv-hero-desc">
+                    I combine technical video editing, cinematic visual storytelling, and AI voiceover synthesis to craft high-converting short-form reels, commercial ads, and engaging video content.
+                </p>
+
+                <!-- Core Capability Metric Pillars -->
+                <div class="mv-metrics-grid">
+                    <div class="mv-metric-card">
+                        <div class="mv-metric-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                                <line x1="7" y1="2" x2="7" y2="22"></line>
+                                <line x1="17" y1="2" x2="17" y2="22"></line>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                            </svg>
+                        </div>
+                        <div class="mv-metric-value">After Effects</div>
+                        <div class="mv-metric-label">Keyframes &bull; VFX &bull; Motion</div>
+                    </div>
+
+                    <div class="mv-metric-card">
+                        <div class="mv-metric-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                            </svg>
+                        </div>
+                        <div class="mv-metric-value">9:16 Reels</div>
+                        <div class="mv-metric-label">Shorts &bull; Reels &bull; TikTok</div>
+                    </div>
+
+                    <div class="mv-metric-card">
+                        <div class="mv-metric-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" y1="19" x2="12" y2="23"></line>
+                                <line x1="8" y1="23" x2="16" y2="23"></line>
+                            </svg>
+                        </div>
+                        <div class="mv-metric-value">AI Voiceover</div>
+                        <div class="mv-metric-label">Scripting &bull; Voice Synthesis</div>
+                    </div>
+
+                    <div class="mv-metric-card">
+                        <div class="mv-metric-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                            </svg>
+                        </div>
+                        <div class="mv-metric-value">High Retention</div>
+                        <div class="mv-metric-label">Pacing &bull; Hooks &bull; CTR</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="mv-divider"></div>
+
+            <!-- Core Video Capabilities Section -->
+            <section class="mv-capabilities-section" id="capabilities">
+                <div class="mv-section-header">
+                    <span class="mv-badge">Capabilities</span>
+                    <h2 class="mv-section-title">Core Video Capabilities</h2>
+                    <p class="mv-section-subtitle">
+                        From technical keyframe animation to AI-synthesized narrative pacing built for short-form retention and commercial conversion.
+                    </p>
+                </div>
+
+                <div class="mv-capabilities-grid">
+
+                    <!-- 1. Motion Graphics & Post-Production -->
+                    <div class="mv-capability-card">
+                        <div class="card-top">
+                            <span class="capability-num">01 / POST-PRODUCTION</span>
+                            <div class="capability-icon-wrap">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <h3 class="capability-card-title">Motion Graphics &amp; Post-Production</h3>
+                        <p class="capability-card-lead">
+                            Advanced video editing using Adobe After Effects and premier post-production suites to create high-polished visual media.
+                        </p>
+
+                        <div class="capability-features-list">
+                            <div class="capability-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>After Effects Editing</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Custom keyframe animations, seamless transitions, motion tracking, visual effects (VFX), and dynamic lower-thirds.
+                                </p>
+                            </div>
+
+                            <div class="capability-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Cinematic Ad Production</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Framing, color grading, pacing, and sound design tailored for high-impact social media commercials.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-pills-wrap">
+                            <span class="platform-tag">Adobe After Effects</span>
+                            <span class="platform-tag">Motion Tracking</span>
+                            <span class="platform-tag">Color Grading</span>
+                            <span class="platform-tag">VFX Transitions</span>
+                            <span class="platform-tag">Sound Design</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. AI-Driven Scripting & Voice Synthesis -->
+                    <div class="mv-capability-card">
+                        <div class="card-top">
+                            <span class="capability-num">02 / AI SYNTHESIS</span>
+                            <div class="capability-icon-wrap">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <h3 class="capability-card-title">AI-Driven Scripting &amp; Voice Synthesis</h3>
+                        <p class="capability-card-lead">
+                            Leveraging AI tools to streamline pre-production and create engaging narratives.
+                        </p>
+
+                        <div class="capability-features-list">
+                            <div class="capability-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Script &amp; Dialogue Generation</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Crafting persuasive ad scripts, hooks, and call-to-actions (CTAs) structured specifically for short-form retention (Instagram Reels, TikTok, Shorts).
+                                </p>
+                            </div>
+
+                            <div class="capability-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>AI Voiceovers</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Integrating natural-sounding AI voice models to match brand tone, pitch, and pacing for rapid ad iteration.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-pills-wrap">
+                            <span class="platform-tag">Hook Engineering</span>
+                            <span class="platform-tag">Retention Scripting</span>
+                            <span class="platform-tag">Neural Voiceovers</span>
+                            <span class="platform-tag">Dynamic Pacing</span>
+                            <span class="platform-tag">Ad Copy CTAs</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Featured Work & Reels Section -->
+            <section class="mv-reels-section" id="reels">
+                <div class="mv-section-header">
+                    <span class="mv-badge">Featured Portfolio</span>
+                    <h2 class="mv-section-title">Featured Work &amp; Reels</h2>
+                    <p class="mv-section-subtitle">
+                        Responsive 9:16 vertical video showcase maintaining standard social dimensions across mobile, tablet, and desktop viewports.
+                    </p>
+                </div>
+
+                <!-- 9:16 Responsive Reel Grid -->
+                <div class="reel-grid">
+                    <!-- Reel Card 01 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 01 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/De1GEF-uF88/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Visual Storytelling Reel</h4>
+                            </div>
+                            <p class="reel-item-desc">Cinematic pacing, custom After Effects VFX, and sound synchronization.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">After Effects</span>
+                                <span class="reel-pill">Cinematic</span>
+                                <span class="reel-pill">Motion VFX</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/De1GEF-uF88" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 02 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 02 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/DertQdOuc5t/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Product Commercial Ad</h4>
+                            </div>
+                            <p class="reel-item-desc">Commercial framing, product highlights, and dynamic transitions.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Commercial</span>
+                                <span class="reel-pill">Color Grade</span>
+                                <span class="reel-pill">Pacing</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/DertQdOuc5t" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 03 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 03 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/DeUgMU_Ov0Q/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Social-First Creative Reel</h4>
+                            </div>
+                            <p class="reel-item-desc">High-tempo retention hook, bold kinetic typography, and audio polish.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Viral Hook</span>
+                                <span class="reel-pill">Sound Design</span>
+                                <span class="reel-pill">Retention</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/DeUgMU_Ov0Q" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 04 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 04 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/Dd86TTvOuQQ/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Motion & Brand Showcase</h4>
+                            </div>
+                            <p class="reel-item-desc">Seamless scene blending, 3D layer positioning, and branding animation.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Brand Ad</span>
+                                <span class="reel-pill">Kinetic Type</span>
+                                <span class="reel-pill">VFX</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/Dd86TTvOuQQ" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 05 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 05 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/DdqfyLfzSie/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Keyframe & VFX Animation</h4>
+                            </div>
+                            <p class="reel-item-desc">Precision keyframe curves, visual effects, and dynamic lower-thirds.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Keyframing</span>
+                                <span class="reel-pill">Transitions</span>
+                                <span class="reel-pill">3D Sync</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/DdqfyLfzSie" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 06 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 06 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/Dda5js8yj8m/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">High-Tempo Social Cut</h4>
+                            </div>
+                            <p class="reel-item-desc">Beat-synced cuts, impact sound design, and short-form ad structure.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Fast Cuts</span>
+                                <span class="reel-pill">SFX</span>
+                                <span class="reel-pill">Beat Sync</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/Dda5js8yj8m" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 07 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 07 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/DdMSF5uKEw2/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Commercial Campaign Reel</h4>
+                            </div>
+                            <p class="reel-item-desc">Targeted ad storytelling with natural AI voiceover pacing and color tuning.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Ad Campaign</span>
+                                <span class="reel-pill">AI Voiceover</span>
+                                <span class="reel-pill">Color Grade</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/DdMSF5uKEw2" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 08 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 08 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/Dc2iIcqK8cE/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Creative Motion Showcase</h4>
+                            </div>
+                            <p class="reel-item-desc">Creative visual assets, motion tracking, and smooth camera panning.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Visual Effects</span>
+                                <span class="reel-pill">Motion Graphics</span>
+                                <span class="reel-pill">Pacing</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/Dc2iIcqK8cE" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 09 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 09 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/DcvpCYeukNe/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Cinematic Framing Cut</h4>
+                            </div>
+                            <p class="reel-item-desc">Narrative pacing, atmospheric soundscape, and moody color palette.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Cinematic</span>
+                                <span class="reel-pill">Framing</span>
+                                <span class="reel-pill">Soundscape</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/DcvpCYeukNe" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 10 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 10 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/DcjB66MqkcY/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Short-Form Engagement Reel</h4>
+                            </div>
+                            <p class="reel-item-desc">Engineered for Instagram Reels and Shorts with high watch-through rates.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Shorts & Reels</span>
+                                <span class="reel-pill">Dynamic Motion</span>
+                                <span class="reel-pill">Hooks</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/DcjB66MqkcY" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 11 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 11 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/DcB9uLrOtwX/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Commercial Product Highlight</h4>
+                            </div>
+                            <p class="reel-item-desc">Clean product showcase, motion titles, and persuasive CTA timing.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Product Demo</span>
+                                <span class="reel-pill">Lower Thirds</span>
+                                <span class="reel-pill">Clean Edit</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/DcB9uLrOtwX" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 12 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 12 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/Db71pd1O6bO/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Dynamic Motion Graphics</h4>
+                            </div>
+                            <p class="reel-item-desc">Multi-layer composition, custom speed ramping, and retention editing.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Motion Design</span>
+                                <span class="reel-pill">VFX Keyframes</span>
+                                <span class="reel-pill">High CTR</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/Db71pd1O6bO" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 13 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 13 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/DbAYXjXubE9/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Brand Narrative Reel</h4>
+                            </div>
+                            <p class="reel-item-desc">Brand identity storytelling, audio mastering, and modern commercial visual polish.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Brand Narrative</span>
+                                <span class="reel-pill">Audio Polish</span>
+                                <span class="reel-pill">Color Grade</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/DbAYXjXubE9" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reel Card 14 -->
+                    <div class="reel-card">
+                        <div class="reel-frame-wrap">
+                            <span class="reel-badge-overlay">
+                                <span class="reel-badge-dot"></span>
+                                <span>Reel 14 &bull; 9:16</span>
+                            </span>
+                            <iframe 
+                                src="https://www.instagram.com/reel/Da79NO6K83t/embed" 
+                                class="reel-iframe" 
+                                loading="lazy"
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowtransparency="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+                        <div class="reel-meta-content">
+                            <div class="reel-title-row">
+                                <h4 class="reel-item-title">Viral Social Ad Reel</h4>
+                            </div>
+                            <p class="reel-item-desc">High-converting social media ad format structured for maximum audience retention.</p>
+                            <div class="reel-tags-row">
+                                <span class="reel-pill">Social First</span>
+                                <span class="reel-pill">High Retention</span>
+                                <span class="reel-pill">Conversion</span>
+                            </div>
+                            <a href="https://www.instagram.com/reel/Da79NO6K83t" target="_blank" rel="noopener noreferrer" class="reel-action-btn">
+                                <span>Watch on Instagram</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action Box -->
+            <section class="mv-cta-box">
+                <h2 class="mv-cta-title">Ready to create high-impact reels &amp; commercial videos?</h2>
+                <p class="mv-cta-desc">
+                    Let’s collaborate to write, edit, and produce scroll-stopping video content that converts viewers into loyal customers.
+                </p>
+                <div class="mv-cta-actions">
+                    <a href="mailto:mydesign930@gmail.com" class="mv-btn-primary">
+                        <span>Initiate Video Project</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </a>
+                    <a href="tel:+9188731312243" class="mv-btn-secondary">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <span>+91 88731312243</span>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <div id="footer-placeholder">
+        <footer class="reveal-footer">
+            <div class="footer-container">
+                <div class="footer-top">
+                    <div class="footer-title-wrap">
+                        <h2 class="footer-heading">Let’s work<br>together</h2>
+                    </div>
+                    <div class="footer-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="white" stroke-width="2" fill="none"/></svg>
+                    </div>
+                </div>
+                <div class="footer-middle">
+                    <div class="footer-line"></div>
+                    <a href="mailto:mydesign930@gmail.com" class="liquid-button">
+                        <span>Get in touch</span>
+                        <div class="liquid"></div>
+                    </a>
+                </div>
+                <div class="footer-bottom">
+                    <div class="contact-pills">
+                        <a href="mailto:mydesign930@gmail.com" class="pill">mydesign930@gmail.com</a>
+                        <a href="tel:+9188731312243" class="pill">+91 88731312243</a>
+                    </div>
+                    <div class="footer-metadata">
+                        <div class="meta-item"><span>VERSION</span><p>2026 © Edition</p></div>
+                        <div class="meta-item"><span>LOCAL TIME</span><p id="local-time">--:-- --</p></div>
+                        <div class="meta-item"><span>SOCIALS</span>
+                            <div class="social-links">
+                                <a href="#">Instagram</a>
+                                <a href="#">LinkedIn</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Gentle top entrance animation (zero delay on cards on scroll)
+        window.addEventListener('load', () => {
+            gsap.from(".mv-top-bar, .mv-hero-pretitle, .mv-hero-title, .mv-hero-desc", {
+                y: 25,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out"
+            });
+
+            gsap.from(".mv-metric-card", {
+                y: 20,
+                opacity: 0,
+                duration: 0.7,
+                stagger: 0.08,
+                ease: "power2.out",
+                delay: 0.2
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX & Web Design | Anirudha Sharma</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* Specific UI/UX Page Styles */
+        .ux-page-wrapper {
+            background: #ffffff;
+            color: #80879c;
+            padding-top: 150px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ux-intro { padding: 0 50px 100px; max-width: 1200px; }
+        
+        .ux-title {
+            font-family: "Lato", sans-serif;
+            font-size: clamp(3rem, 4vw, 5rem);
+            line-height: 0.9;
+            font-weight: 300;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .ux-subtitle { font-size: 1.5rem; opacity: 0.6;
+        font-family: "Lato", sans-serif;
+        font-weight: 300;
+        }
+
+
+        .ux-showcase-section {
+            padding: 100px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #e2e2e2;
+            border-top: 1px solid #eee;
+        }
+
+        .ux-project-info { text-align: center; margin-bottom: 60px; max-width: 600px; }
+        .ux-number { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 15px; }
+        .ux-project-info h2 { font-size: 3rem; margin-bottom: 15px; }
+
+        /* THE LAPTOP MOCKUP */
+        .laptop-container {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            perspective: 1000px;
+        }
+
+        .laptop-screen {
+            background: #000;
+            border: 12px solid #1c1d20;
+            border-radius: 15px 15px 0 0;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.1);
+        }
+
+        .laptop-screen iframe { width: 100%; height: 100%; border: none; background: #fff; }
+
+        .laptop-base {
+            height: 12px;
+            width: 106%;
+            background: #d1d1d1;
+            margin-left: -3%;
+            border-radius: 0 0 10px 10px;
+            position: relative;
+        }
+
+        .ux-visit-link {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 15px 35px;
+            border: 1px solid #1c1d20;
+            border-radius: 40px;
+            text-decoration: none;
+            color: #1c1d20;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .ux-visit-link:hover { background: #1c1d20; color: #fff; transform: translateY(-3px); }
+
+        /* Fixes footer overlap */
+        .reveal-footer { z-index: 0; position: sticky; bottom: 0; }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <main class="ux-page-wrapper">
+        <section class="ux-intro">
+            <h1 class="ux-title">Web Design &<br>Development</h1>
+            <p class="ux-subtitle">Exploring high-performance e-commerce and corporate solutions.</p>
+        </section>
+
+        <section class="ux-showcase-section">
+            <div class="ux-project-info">
+                <span class="ux-number">Project 01</span>
+                <h2>Vantra Lighting</h2>
+                <p>Architectural lighting manufacturer site with a focus on 3D visualization and clean UI.</p>
+                <a href="https://vantralighting.com//" target="_blank" class="ux-visit-link">Launch Live Site</a>
+            </div>
+            <div class="laptop-container" id="vantra-laptop">
+                <div class="laptop-screen">
+                    <iframe src="https://vantralighting.com//"></iframe>
+                </div>
+                <div class="laptop-base"></div>
+            </div>
+        </section>
+
+        <section class="ux-showcase-section">
+            <div class="ux-project-info">
+                <span class="ux-number">Project 02</span>
+                <h2>Green Surfer</h2>
+                <p>Industrial LED website focusing on sustainability and high-output electrical engineering.</p>
+                <a href="https://greensurfer.net/" target="_blank" class="ux-visit-link">Launch Live Site</a>
+            </div>
+            <div class="laptop-container" id="gs-laptop">
+                <div class="laptop-screen">
+                    <iframe src="https://greensurfer.net/"></iframe>
+                </div>
+                <div class="laptop-base"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // Page-specific Reveal Logic
+        window.addEventListener('load', () => {
+            gsap.from(".ux-title, .ux-subtitle", {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power4.out"
+            });
+
+            gsap.from(".laptop-container", {
+                scrollTrigger: {
+                    trigger: ".laptop-container",
+                    start: "top 80%",
+                },
+                y: 100,
+                opacity: 0,
+                scale: 0.95,
+                duration: 1.5,
+                ease: "power3.out"
+            });
+        });
+    </script>
+</body>
+</html>

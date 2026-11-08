@@ -1,0 +1,1448 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Digital Marketing &amp; E-Commerce | Anirudha Sharma</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Animation Libraries -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* Digital Marketing & E-Commerce - Tight, Modern, High-Performance Layout */
+        :root {
+            --dm-bg: #0e1014;
+            --dm-card-bg: rgba(22, 24, 30, 0.85);
+            --dm-card-border: rgba(255, 255, 255, 0.08);
+            --dm-card-hover: rgba(255, 255, 255, 0.16);
+            --dm-purple: #8e44ad;
+            --dm-blue: #455ce9;
+            --dm-emerald: #10b981;
+            --dm-text-muted: #9aa2b1;
+            --dm-text-dim: #64748b;
+        }
+
+        body {
+            background-color: var(--dm-bg);
+            color: #ffffff;
+            font-family: "Lato", sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Fixed Navigation container */
+        #nav-placeholder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        #nav-placeholder nav {
+            background: rgba(14, 16, 20, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Main Page Wrapper */
+        .dm-page-wrapper {
+            position: relative;
+            z-index: 10;
+            background-color: var(--dm-bg);
+            background-image: 
+                radial-gradient(circle at 15% 10%, rgba(69, 92, 233, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 25%, rgba(142, 68, 173, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 50% 70%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+            padding-top: 100px;
+            padding-bottom: 40px;
+            min-height: auto;
+        }
+
+        .dm-container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 35px;
+        }
+
+        /* Top Breadcrumb & Status Bar */
+        .dm-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--dm-card-border);
+        }
+
+        .dm-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--dm-text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .dm-back-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .dm-back-btn:hover {
+            color: #ffffff;
+        }
+
+        .dm-back-btn:hover svg {
+            transform: translateX(-4px);
+        }
+
+        .dm-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 12px;
+            border-radius: 30px;
+            background: rgba(142, 68, 173, 0.15);
+            border: 1px solid rgba(142, 68, 173, 0.35);
+            color: #d8b4fe;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--dm-emerald);
+            box-shadow: 0 0 10px var(--dm-emerald);
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.3); }
+        }
+
+        /* Hero Section */
+        .dm-hero {
+            padding: 10px 0 25px;
+        }
+
+        .dm-hero-pretitle {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--dm-purple);
+            margin-bottom: 10px;
+        }
+
+        .dm-hero-title {
+            font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+            font-weight: 300;
+            line-height: 1.05;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 18px;
+        }
+
+        .dm-hero-title .highlight-text {
+            font-weight: 700;
+            background: linear-gradient(120deg, #ffffff 15%, #c084fc 65%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dm-hero-desc {
+            font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+            line-height: 1.55;
+            color: var(--dm-text-muted);
+            max-width: 860px;
+            font-weight: 300;
+            margin-bottom: 28px;
+        }
+
+        /* Metric Highlights Grid */
+        .dm-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .dm-metric-card {
+            background: var(--dm-card-bg);
+            border: 1px solid var(--dm-card-border);
+            border-radius: 14px;
+            padding: 18px 18px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .dm-metric-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--dm-card-hover);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .dm-metric-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: #d8b4fe;
+        }
+
+        .dm-metric-value {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #ffffff;
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        .dm-metric-label {
+            font-size: 12px;
+            color: var(--dm-text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            line-height: 1.3;
+        }
+
+        /* Clean Section Divider */
+        .dm-divider {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, var(--dm-card-border), transparent);
+            margin: 35px 0;
+        }
+
+        /* Section Header */
+        .dm-section-header {
+            margin-bottom: 22px;
+        }
+
+        .dm-badge {
+            display: inline-block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: var(--dm-purple);
+            margin-bottom: 6px;
+        }
+
+        .dm-section-title {
+            font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .dm-section-subtitle {
+            font-size: 1rem;
+            color: var(--dm-text-muted);
+            max-width: 680px;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        /* Services Grid */
+        .dm-services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .dm-service-card {
+            background: var(--dm-card-bg);
+            border: 1px solid var(--dm-card-border);
+            border-radius: 16px;
+            padding: 26px 24px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .dm-service-card:hover {
+            border-color: rgba(142, 68, 173, 0.45);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-num {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--dm-purple);
+            letter-spacing: 1.5px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: rgba(142, 68, 173, 0.1);
+            border: 1px solid rgba(142, 68, 173, 0.25);
+        }
+
+        .service-icon-wrap {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--dm-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .dm-service-card:hover .service-icon-wrap {
+            background: var(--dm-purple);
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        .service-card-title {
+            font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+            font-weight: 700;
+            line-height: 1.25;
+            color: #ffffff;
+        }
+
+        .service-card-lead {
+            font-size: 0.94rem;
+            line-height: 1.5;
+            color: var(--dm-text-muted);
+            font-weight: 300;
+        }
+
+        /* Pillars / Features list */
+        .service-features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .service-feature-item {
+            padding: 12px 14px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .service-feature-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .feature-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.96rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .feature-bullet {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--dm-purple);
+            flex-shrink: 0;
+        }
+
+        .feature-desc {
+            font-size: 0.88rem;
+            line-height: 1.45;
+            color: var(--dm-text-muted);
+            font-weight: 300;
+            padding-left: 13px;
+        }
+
+        /* Platform Pills */
+        .card-pills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: auto;
+        }
+
+        .platform-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--dm-text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        /* Process Section */
+        .dm-process-section {
+            margin-top: 45px;
+        }
+
+        .process-cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+        }
+
+        .process-card {
+            background: var(--dm-card-bg);
+            border: 1px solid var(--dm-card-border);
+            border-radius: 14px;
+            padding: 22px 18px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .process-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--dm-purple);
+            box-shadow: 0 10px 25px rgba(142, 68, 173, 0.15);
+        }
+
+        .process-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .process-step-num {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.15);
+            transition: color 0.3s ease;
+        }
+
+        .process-card:hover .process-step-num {
+            color: var(--dm-purple);
+        }
+
+        .process-phase-badge {
+            font-size: 10px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 3px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            color: var(--dm-text-muted);
+        }
+
+        .process-title {
+            font-size: 1.22rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .process-action {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--dm-text-muted);
+            font-weight: 300;
+        }
+
+        .process-deliverable-box {
+            background: rgba(142, 68, 173, 0.08);
+            border: 1px dashed rgba(142, 68, 173, 0.3);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-top: auto;
+        }
+
+        .deliverable-label {
+            display: block;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #d8b4fe;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .deliverable-val {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+
+        /* Process Table View */
+        .process-table-wrap {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--dm-card-border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .process-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .process-table th {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 14px 20px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #d8b4fe;
+            border-bottom: 1px solid var(--dm-card-border);
+            font-weight: 700;
+        }
+
+        .process-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.92rem;
+            color: var(--dm-text-muted);
+            vertical-align: middle;
+        }
+
+        .process-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .phase-cell-highlight {
+            font-weight: 700;
+            color: #ffffff !important;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 0.98rem;
+        }
+
+        .deliverable-cell-pill {
+            display: inline-block;
+            background: rgba(142, 68, 173, 0.15);
+            border: 1px solid rgba(142, 68, 173, 0.3);
+            color: #f3e8ff;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Platforms & Ecosystem Grid */
+        .dm-ecosystem-section {
+            margin-top: 45px;
+        }
+
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .eco-card {
+            background: var(--dm-card-bg);
+            border: 1px solid var(--dm-card-border);
+            border-radius: 12px;
+            padding: 16px 14px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .eco-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .eco-icon {
+            width: 28px;
+            height: 28px;
+            color: #d8b4fe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .eco-name {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .eco-tag {
+            font-size: 10px;
+            color: var(--dm-text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        /* CTA Section */
+        .dm-cta-box {
+            margin-top: 45px;
+            background: linear-gradient(135deg, rgba(69, 92, 233, 0.12) 0%, rgba(142, 68, 173, 0.18) 100%);
+            border: 1px solid rgba(142, 68, 173, 0.35);
+            border-radius: 18px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .dm-cta-title {
+            font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+            color: #ffffff;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dm-cta-desc {
+            font-size: 1.05rem;
+            color: var(--dm-text-muted);
+            max-width: 600px;
+            margin: 0 auto 25px;
+            line-height: 1.5;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dm-cta-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dm-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffffff;
+            color: #1c1d20;
+            padding: 13px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.12);
+        }
+
+        .dm-btn-primary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        .dm-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            padding: 13px 26px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .dm-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Footer styling on subpage - prevents 100vh empty void */
+        .reveal-footer {
+            position: relative !important;
+            height: auto !important;
+            min-height: 400px;
+            padding: 60px 0 40px !important;
+            background-color: #1c1d20 !important;
+            z-index: 10 !important;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 1024px) {
+            .dm-metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .dm-services-grid {
+                grid-template-columns: 1fr;
+            }
+            .process-cards-container {
+                grid-template-columns: 1fr;
+            }
+            .ecosystem-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dm-container {
+                padding: 0 20px;
+            }
+            .dm-page-wrapper {
+                padding-top: 85px;
+                padding-bottom: 30px;
+            }
+            .dm-hero {
+                padding: 5px 0 20px;
+            }
+            .dm-metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            .dm-service-card {
+                padding: 20px 18px;
+            }
+            .ecosystem-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .dm-cta-box {
+                padding: 30px 18px;
+            }
+            .process-table-wrap {
+                overflow-x: auto;
+            }
+            .process-table th, .process-table td {
+                padding: 12px 14px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Global Navigation -->
+    <div id="nav-placeholder">
+        <nav>
+            <div class="nav-left">
+                <a href="index.html" class="home-link">
+                    <svg class="home-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>© Code by Anirudha</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <div class="links-desktop">
+                    <a href="index.html#work" class="nav-link">Work</a>
+                    <a href="index.html#about" class="nav-link">About</a>
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="mobile-menu">
+            <div class="menu-content">
+                <div class="menu-label">Navigation</div>
+                <div class="menu-links">
+                    <div class="menu-item"><a href="index.html">Home</a></div>
+                    <div class="menu-item"><a href="index.html#work">Work</a></div>
+                    <div class="menu-item"><a href="index.html#about">About</a></div>
+                    <div class="menu-item"><a href="index.html#contact">Contact</a></div>
+                </div>
+                <div class="menu-footer">
+                    <p>Socials</p>
+                    <div class="menu-social-links">
+                        <a href="#">Instagram</a>
+                        <a href="#">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-toggle" id="menuToggle">
+            <div class="hamburger-inner">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Page Wrapper -->
+    <main class="dm-page-wrapper">
+        <div class="dm-container">
+
+            <!-- Breadcrumb Navigation Bar -->
+            <div class="dm-top-bar">
+                <a href="index.html#work" class="dm-back-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    <span>Back to Selected Work</span>
+                </a>
+                <div class="dm-status-badge">
+                    <span class="pulse-dot"></span>
+                    <span>Growth &amp; Performance</span>
+                </div>
+            </div>
+
+            <!-- Hero Section -->
+            <section class="dm-hero">
+                <span class="dm-hero-pretitle">High-Intent Traffic &amp; Revenue Architecture</span>
+                <h1 class="dm-hero-title">
+                    Digital Marketing <br>
+                    <span class="highlight-text">&amp; E-Commerce</span>
+                </h1>
+                <p class="dm-hero-desc">
+                    I help brands build a powerful online presence, acquire high-intent customers, and scale revenue through performance-driven digital advertising and optimized e-commerce infrastructure.
+                </p>
+
+                <!-- Core Capability Metric Pillars -->
+                <div class="dm-metrics-grid">
+                    <div class="dm-metric-card">
+                        <div class="dm-metric-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="22" y1="12" x2="18" y2="12"></line>
+                                <line x1="6" y1="12" x2="2" y2="12"></line>
+                                <line x1="12" y1="6" x2="12" y2="2"></line>
+                                <line x1="12" y1="22" x2="12" y2="18"></line>
+                            </svg>
+                        </div>
+                        <div class="dm-metric-value">Paid Media</div>
+                        <div class="dm-metric-label">Meta &bull; Google PMax &bull; OTT</div>
+                    </div>
+
+                    <div class="dm-metric-card">
+                        <div class="dm-metric-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                <polyline points="17 6 23 6 23 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="dm-metric-value">Organic SEO</div>
+                        <div class="dm-metric-label">Technical &bull; Keywords &bull; GSC</div>
+                    </div>
+
+                    <div class="dm-metric-card">
+                        <div class="dm-metric-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                        </div>
+                        <div class="dm-metric-value">GA4 &amp; Data</div>
+                        <div class="dm-metric-label">Tracking &bull; GMC &bull; Local GBP</div>
+                    </div>
+
+                    <div class="dm-metric-card">
+                        <div class="dm-metric-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                        </div>
+                        <div class="dm-metric-value">Shopify Store</div>
+                        <div class="dm-metric-label">Turnkey Setup &bull; Ad Sync</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dm-divider"></div>
+
+            <!-- What I Do Section -->
+            <section class="dm-services-section" id="services">
+                <div class="dm-section-header">
+                    <span class="dm-badge">Core Pillars</span>
+                    <h2 class="dm-section-title">What I Do</h2>
+                    <p class="dm-section-subtitle">
+                        End-to-end performance marketing, organic search engineering, telemetry tracking, and e-commerce infrastructure designed to drive quantifiable ROI.
+                    </p>
+                </div>
+
+                <div class="dm-services-grid">
+
+                    <!-- 1. Paid Media & Performance Advertising -->
+                    <div class="dm-service-card">
+                        <div class="card-top">
+                            <span class="service-num">01 / PAID MEDIA</span>
+                            <div class="service-icon-wrap">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <h3 class="service-card-title">Paid Media &amp; Performance Advertising</h3>
+                        <p class="service-card-lead">
+                            Data-driven advertising campaigns tailored to capture traffic, engage audiences, and drive conversions across premier platforms.
+                        </p>
+
+                        <div class="service-features-list">
+                            <div class="service-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Meta Ads (Facebook &amp; Instagram)</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Full-funnel campaign creation, creative strategy, audience targeting, and continuous bid and ad optimization.
+                                </p>
+                            </div>
+
+                            <div class="service-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Google Ads Network</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Search, Performance Max (PMax), Display, and Shopping ads focused on high-intent search traffic and maximum ROI.
+                                </p>
+                            </div>
+
+                            <div class="service-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>OTT &amp; Alternative Media</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Strategic ad placement on high-engagement platforms like JioHotstar to reach wide, highly targeted regional and national audiences.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-pills-wrap">
+                            <span class="platform-tag">Meta Ads</span>
+                            <span class="platform-tag">Google PMax</span>
+                            <span class="platform-tag">Search &amp; Shopping</span>
+                            <span class="platform-tag">JioHotstar OTT</span>
+                            <span class="platform-tag">Audience Retargeting</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. Search Engine Optimization & Site Performance -->
+                    <div class="dm-service-card">
+                        <div class="card-top">
+                            <span class="service-num">02 / ORGANIC GROWTH</span>
+                            <div class="service-icon-wrap">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <h3 class="service-card-title">Search Engine Optimization &amp; Site Performance</h3>
+                        <p class="service-card-lead">
+                            Technical and content optimization to boost organic visibility, search rankings, and overall site usability.
+                        </p>
+
+                        <div class="service-features-list">
+                            <div class="service-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Technical &amp; On-Page SEO</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Website speed, mobile responsiveness, structural navigation, and on-page element optimization.
+                                </p>
+                            </div>
+
+                            <div class="service-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Strategic Keyword Setup</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Comprehensive competitor and search-intent keyword mapping to drive qualified organic traffic.
+                                </p>
+                            </div>
+
+                            <div class="service-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Google Search Console (GSC)</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Seamless integration, indexing monitoring, search queries analysis, and crawl error resolution.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-pills-wrap">
+                            <span class="platform-tag">Technical SEO</span>
+                            <span class="platform-tag">Core Web Vitals</span>
+                            <span class="platform-tag">Keyword Mapping</span>
+                            <span class="platform-tag">Google Search Console</span>
+                            <span class="platform-tag">Site Architecture</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. Analytics, Tracking & Business Setup -->
+                    <div class="dm-service-card">
+                        <div class="card-top">
+                            <span class="service-num">03 / TRACKING &amp; DATA</span>
+                            <div class="service-icon-wrap">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <h3 class="service-card-title">Analytics, Tracking &amp; Business Setup</h3>
+                        <p class="service-card-lead">
+                            Building the measurement foundation required to track every dollar, user behavior, and touchpoint.
+                        </p>
+
+                        <div class="service-features-list">
+                            <div class="service-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Google Analytics (GA4)</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Setup, event tracking, custom dashboards, and actionable metric analysis to optimize conversion funnels.
+                                </p>
+                            </div>
+
+                            <div class="service-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Google Merchant Center (GMC)</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Storefront product feed setup, troubleshooting feed approvals, and integration with Google Shopping.
+                                </p>
+                            </div>
+
+                            <div class="service-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Google Business Profile (GBP)</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Local SEO setup, business verification, product showcase, and local search optimization.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-pills-wrap">
+                            <span class="platform-tag">GA4 Analytics</span>
+                            <span class="platform-tag">Conversion API</span>
+                            <span class="platform-tag">Merchant Center Feeds</span>
+                            <span class="platform-tag">Google Business Profile</span>
+                            <span class="platform-tag">Funnel Tracking</span>
+                        </div>
+                    </div>
+
+                    <!-- 4. End-to-End Shopify E-Commerce Solutions -->
+                    <div class="dm-service-card">
+                        <div class="card-top">
+                            <span class="service-num">04 / E-COMMERCE</span>
+                            <div class="service-icon-wrap">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <h3 class="service-card-title">End-to-End Shopify E-Commerce Solutions</h3>
+                        <p class="service-card-lead">
+                            Complete digital storefront setup and seamless advertising integration built to scale.
+                        </p>
+
+                        <div class="service-features-list">
+                            <div class="service-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Shopify Store Setup</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Modern, mobile-responsive storefront design, product catalog configuration, and payment gateway integration.
+                                </p>
+                            </div>
+
+                            <div class="service-feature-item">
+                                <div class="feature-title">
+                                    <span class="feature-bullet"></span>
+                                    <span>Shopify Ad Integration</span>
+                                </div>
+                                <p class="feature-desc">
+                                    Direct marketing app connectivity, tracking pixel deployment, and running performance campaigns straight through Shopify.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-pills-wrap">
+                            <span class="platform-tag">Shopify Storefront</span>
+                            <span class="platform-tag">Payment Gateways</span>
+                            <span class="platform-tag">Pixel Deployment</span>
+                            <span class="platform-tag">Catalog Architecture</span>
+                            <span class="platform-tag">Conversion Rate Opt.</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- My Process Section -->
+            <section class="dm-process-section" id="process">
+                <div class="dm-section-header">
+                    <span class="dm-badge">Execution Framework</span>
+                    <h2 class="dm-section-title">My Process</h2>
+                    <p class="dm-section-subtitle">
+                        A structured, iterative lifecycle engineered to eliminate guesswork and systematically scale campaign efficiency.
+                    </p>
+                </div>
+
+                <div class="process-cards-container">
+
+                    <!-- Phase 01 -->
+                    <div class="process-card">
+                        <div class="process-top-row">
+                            <span class="process-step-num">01</span>
+                            <span class="process-phase-badge">Phase 01</span>
+                        </div>
+                        <h3 class="process-title">Audit &amp; Setup</h3>
+                        <p class="process-action">
+                            Technical integrations, analytics, tracking, and storefront configuration to establish clean attribution.
+                        </p>
+                        <div class="process-deliverable-box">
+                            <span class="deliverable-label">Key Deliverable</span>
+                            <div class="deliverable-val">Complete Tracking &amp; Store Infrastructure</div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 02 -->
+                    <div class="process-card">
+                        <div class="process-top-row">
+                            <span class="process-step-num">02</span>
+                            <span class="process-phase-badge">Phase 02</span>
+                        </div>
+                        <h3 class="process-title">Strategy &amp; Launch</h3>
+                        <p class="process-action">
+                            Keyword research, audience profiling, and multi-channel campaign deployment across Meta and Google networks.
+                        </p>
+                        <div class="process-deliverable-box">
+                            <span class="deliverable-label">Key Deliverable</span>
+                            <div class="deliverable-val">Targeted Campaign Go-Live</div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 03 -->
+                    <div class="process-card">
+                        <div class="process-top-row">
+                            <span class="process-step-num">03</span>
+                            <span class="process-phase-badge">Phase 03</span>
+                        </div>
+                        <h3 class="process-title">Optimize &amp; Scale</h3>
+                        <p class="process-action">
+                            Metric analysis via GA4/GSC, A/B testing, and ROI-driven ad spend scaling to compound profitable conversions.
+                        </p>
+                        <div class="process-deliverable-box">
+                            <span class="deliverable-label">Key Deliverable</span>
+                            <div class="deliverable-val">Continuous Conversion &amp; Growth</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Structured Process Table -->
+                <div class="process-table-wrap">
+                    <table class="process-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Phase</th>
+                                <th style="width: 45%;">Action</th>
+                                <th style="width: 30%;">Key Deliverable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="phase-cell-highlight">01. Audit &amp; Setup</td>
+                                <td>Technical integrations, analytics, tracking, and storefront configuration</td>
+                                <td><span class="deliverable-cell-pill">Complete Tracking &amp; Store Infrastructure</span></td>
+                            </tr>
+                            <tr>
+                                <td class="phase-cell-highlight">02. Strategy &amp; Launch</td>
+                                <td>Keyword research, audience profiling, and multi-channel campaign deployment</td>
+                                <td><span class="deliverable-cell-pill">Targeted Campaign Go-Live</span></td>
+                            </tr>
+                            <tr>
+                                <td class="phase-cell-highlight">03. Optimize &amp; Scale</td>
+                                <td>Metric analysis via GA4/GSC, A/B testing, and ROI-driven ad spend scaling</td>
+                                <td><span class="deliverable-cell-pill">Continuous Conversion &amp; Growth</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Ecosystem & Platform Stack -->
+            <section class="dm-ecosystem-section">
+                <div class="dm-section-header">
+                    <span class="dm-badge">Platforms &amp; Tooling</span>
+                    <h2 class="dm-section-title">Ecosystem Stack</h2>
+                    <p class="dm-section-subtitle">
+                        Industry-standard advertising, analytics, and e-commerce platforms deployed for maximum precision.
+                    </p>
+                </div>
+
+                <div class="ecosystem-grid">
+                    <div class="eco-card">
+                        <div class="eco-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
+                            </svg>
+                        </div>
+                        <div class="eco-name">Meta Ads</div>
+                        <span class="eco-tag">FB &amp; IG Full Funnel</span>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.5h-2v-2h2zm0-4h-2V7h2z"/>
+                            </svg>
+                        </div>
+                        <div class="eco-name">Google Ads</div>
+                        <span class="eco-tag">Search &bull; PMax &bull; Shopping</span>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                        </div>
+                        <div class="eco-name">JioHotstar OTT</div>
+                        <span class="eco-tag">Streaming &amp; Regional</span>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                                <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                            </svg>
+                        </div>
+                        <div class="eco-name">Google Analytics 4</div>
+                        <span class="eco-tag">Telemetry &amp; Funnels</span>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <div class="eco-name">Search Console</div>
+                        <span class="eco-tag">Indexing &amp; Organic</span>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <path d="M16 10a4 4 0 0 1-8 0"></path>
+                            </svg>
+                        </div>
+                        <div class="eco-name">Shopify</div>
+                        <span class="eco-tag">Storefront &amp; Apps</span>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                        </div>
+                        <div class="eco-name">Merchant Center</div>
+                        <span class="eco-tag">Shopping Feeds</span>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="eco-name">Google Business</div>
+                        <span class="eco-tag">Local Presence</span>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <div class="eco-name">Tag Manager</div>
+                        <span class="eco-tag">Data Layer &amp; Events</span>
+                    </div>
+
+                    <div class="eco-card">
+                        <div class="eco-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <div class="eco-name">Conversion API</div>
+                        <span class="eco-tag">Server-Side Tracking</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="dm-cta-box">
+                <h2 class="dm-cta-title">Ready to scale revenue &amp; dominate paid media?</h2>
+                <p class="dm-cta-desc">
+                    Let’s build an end-to-end performance engine that transforms high-intent traffic into recurring e-commerce customers.
+                </p>
+                <div class="dm-cta-actions">
+                    <a href="mailto:mydesign930@gmail.com" class="dm-btn-primary">
+                        <span>Initiate Project</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </a>
+                    <a href="tel:+9188731312243" class="dm-btn-secondary">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <span>+91 88731312243</span>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <div id="footer-placeholder">
+        <footer class="reveal-footer">
+            <div class="footer-container">
+                <div class="footer-top">
+                    <div class="footer-title-wrap">
+                        <h2 class="footer-heading">Let’s work<br>together</h2>
+                    </div>
+                    <div class="footer-arrow">
+                        <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="white" stroke-width="2" fill="none"/></svg>
+                    </div>
+                </div>
+                <div class="footer-middle">
+                    <div class="footer-line"></div>
+                    <a href="mailto:mydesign930@gmail.com" class="liquid-button">
+                        <span>Get in touch</span>
+                        <div class="liquid"></div>
+                    </a>
+                </div>
+                <div class="footer-bottom">
+                    <div class="contact-pills">
+                        <a href="mailto:mydesign930@gmail.com" class="pill">mydesign930@gmail.com</a>
+                        <a href="tel:+9188731312243" class="pill">+91 88731312243</a>
+                    </div>
+                    <div class="footer-metadata">
+                        <div class="meta-item"><span>VERSION</span><p>2026 © Edition</p></div>
+                        <div class="meta-item"><span>LOCAL TIME</span><p id="local-time">--:-- --</p></div>
+                        <div class="meta-item"><span>SOCIALS</span>
+                            <div class="social-links">
+                                <a href="#">Instagram</a>
+                                <a href="#">LinkedIn</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script>
+        // Subtle top entrance animation only (all cards remain 100% visible on scroll with 0 delay)
+        window.addEventListener('load', () => {
+            gsap.from(".dm-top-bar, .dm-hero-pretitle, .dm-hero-title, .dm-hero-desc", {
+                y: 25,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out"
+            });
+
+            gsap.from(".dm-metric-card", {
+                y: 20,
+                opacity: 0,
+                duration: 0.7,
+                stagger: 0.08,
+                ease: "power2.out",
+                delay: 0.2
+            });
+        });
+    </script>
+</body>
+
+</html>

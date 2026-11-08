@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print & Publishing | Anirudha Sharma</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* Section Layout */
+        .magazine-section {
+            padding: 160px 50px 100px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #464646;
+            color: #fff;
+        }
+
+        .magazine-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* Interactive Viewer */
+        .magazine-viewport {
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 4/3;
+            background: #161616;
+            border: 1px solid #222;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+        }
+
+        #pdf-render {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+        }
+
+        #loading-info {
+            position: absolute;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #555;
+        }
+
+        /* Reader Controls */
+        .reader-controls {
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #1a1a1a;
+            padding: 12px 25px;
+            border-radius: 40px;
+            border: 1px solid #333;
+        }
+
+        .control-btn {
+            background: none;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 6px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 10px;
+            text-transform: uppercase;
+            transition: 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .page-info {
+            font-size: 12px;
+            color: #777;
+            font-family: 'Lato', sans-serif;
+        }
+
+        /* Thumbnail Gallery */
+        .pdf-gallery {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 60px;
+            border-top: 1px solid #222;
+            padding-top: 40px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .pdf-thumb {
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.4s ease;
+        }
+
+        .pdf-thumb .thumb-box {
+            width: 100%;
+            aspect-ratio: 1/1.4;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 100;
+            margin-bottom: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pdf-thumb.active .thumb-box {
+            border-color: #fff;
+            background: #252525;
+        }
+
+        .pdf-thumb span {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+        }
+
+        .pdf-thumb.active span {
+            color: #fff;
+        }
+
+        .pdf-thumb:hover {
+            transform: translateY(-10px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <main>
+        <section class="magazine-section">
+            <div class="magazine-header">
+                <h1 class="huge-name" style="font-size: clamp(3rem, 5vw, 5rem);">Print &<br>Publishing</h1>
+            </div>
+
+            <div class="magazine-viewport">
+                <div id="loading-info">Initializing Viewer...</div>
+                <canvas id="pdf-render"></canvas>
+            </div>
+
+            <div class="reader-controls">
+                <button class="control-btn" id="prev-page">Prev</button>
+                <div class="page-info">
+                    Page <span id="page-num" style="color:#fff">0</span> / <span id="page-count">0</span>
+                </div>
+                <button class="control-btn" id="next-page">Next</button>
+            </div>
+
+            <div class="pdf-gallery">
+                <div class="gallery-grid">
+                    <div class="pdf-thumb active" data-pdf="pdf/Facade lighting final By Green Surfer.pdf">
+                        <div class="thumb-box">GS</div>
+                        <span>Facade lighting final By Green Surfer</span>
+                    </div>
+
+                    <div class="pdf-thumb" data-pdf="pdf/Vantra Lighting PPT (Interactive).pdf">
+                        <div class="thumb-box">LG</div>
+                        <span>Vantra Lighting PPT (Interactive)</span>
+                    </div>
+
+                    <div class="pdf-thumb" data-pdf="pdf/Green Surfer Catalogue 2024.pdf">
+                        <div class="thumb-box">IM</div>
+                        <span>Green Surfer Catalogue 2024</span>
+                    </div>
+                    <div class="pdf-thumb" data-pdf="pdf/IMG_Boscos Main Menu.pdf">
+                        <div class="thumb-box">IM</div>
+                        <span>food menu</span>
+                    </div>
+                    <div class="pdf-thumb" data-pdf="pdf/TGP MENU.pdf">
+                        <div class="thumb-box">IM</div>
+                        <span>food menu</span>
+                    </div>
+                    <div class="pdf-thumb" data-pdf="pdf/Vantra Catalog_171122.pdf">
+                        <div class="thumb-box">IM</div>
+                        <span>Lighting catalog</span>
+                    </div>
+                    <div class="pdf-thumb" data-pdf="pdf/Boscos Bar menu 12 june 2024.pdf">
+                        <div class="thumb-box">IM</div>
+                        <span>Bar Menu</span>
+                    </div>
+                    <div class="pdf-thumb" data-pdf="pdf/Boscos Main menu 12 june 2024.pdf">
+                        <div class="thumb-box">IM</div>
+                        <span>Food Menu</span>
+                    </div>
+                    <div class="pdf-thumb" data-pdf="pdf/Vantra Product Price list 2024.pdf">
+                        <div class="thumb-box">IM</div>
+                        <span>Price List</span>
+                    </div>
+                    <div class="pdf-thumb" data-pdf="pdf/PRICE LIST 2025.pdf">
+                        <div class="thumb-box">IM</div>
+                        <span>Price List</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <canvas id="pencilCanvas" style="position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;"></canvas>
+
+   <script>
+    // 1. PDF.js Setup
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    let pdfDoc = null,
+        pageNum = 1,
+        pageIsRendering = false,
+        pageNumIsPending = null;
+
+    // Use the names you defined earlier to avoid conflict with script.js
+    const scale = 2,
+        pdfCanvas = document.querySelector('#pdf-render'),
+        pdfCtx = pdfCanvas.getContext('2d');
+
+    // 2. Main Render Function (FIXED NAMES HERE)
+    const renderPage = num => {
+        pageIsRendering = true;
+        document.getElementById('loading-info').style.display = 'block';
+
+        pdfDoc.getPage(num).then(page => {
+            const viewport = page.getViewport({ scale });
+            
+            // Fixed: changed 'canvas' to 'pdfCanvas'
+            pdfCanvas.height = viewport.height;
+            pdfCanvas.width = viewport.width;
+
+            // Fixed: changed 'ctx' to 'pdfCtx'
+            const renderCtx = { canvasContext: pdfCtx, viewport };
+
+            page.render(renderCtx).promise.then(() => {
+                pageIsRendering = false;
+                document.getElementById('loading-info').style.display = 'none';
+                if (pageNumIsPending !== null) {
+                    renderPage(pageNumIsPending);
+                    pageNumIsPending = null;
+                }
+            });
+
+            document.querySelector('#page-num').textContent = num;
+        });
+    };
+
+    const queueRenderPage = num => {
+        if (pageIsRendering) pageNumIsPending = num;
+        else renderPage(num);
+    };
+
+    // 3. Load PDF Function
+    const loadPDF = (path) => {
+        pageNum = 1;
+        document.getElementById('loading-info').innerHTML = "Loading PDF...";
+        document.getElementById('loading-info').style.display = 'block';
+
+        pdfjsLib.getDocument(path).promise.then(doc => {
+            pdfDoc = doc;
+            document.querySelector('#page-count').textContent = pdfDoc.numPages;
+            renderPage(pageNum);
+        }).catch(err => {
+            console.error(err);
+            document.getElementById('loading-info').innerHTML = "File not found.";
+        });
+    };
+
+    // 4. UI Event Listeners
+    document.querySelector('#prev-page').addEventListener('click', () => {
+        if (pageNum <= 1) return;
+        pageNum--;
+        queueRenderPage(pageNum);
+    });
+
+    document.querySelector('#next-page').addEventListener('click', () => {
+        if (pageNum >= pdfDoc.numPages) return;
+        pageNum++;
+        queueRenderPage(pageNum);
+    });
+
+    // 5. Gallery Switching
+    document.querySelectorAll('.pdf-thumb').forEach(thumb => {
+        thumb.addEventListener('click', function () {
+            document.querySelectorAll('.pdf-thumb').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            loadPDF(this.getAttribute('data-pdf'));
+        });
+    });
+
+    // 6. Initial Load (Fixed path to match your first gallery item)
+    loadPDF("pdf/Facade lighting final By Green Surfer.pdf");
+</script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
