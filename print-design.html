@@ -7,148 +7,222 @@
     <title>Print & Publishing | Anirudha Sharma</title>
 
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
-        /* Section Layout */
+        /* ── Base ── */
+        body { background: #111; color: #fff; }
+
+        /* ── Page Section ── */
         .magazine-section {
-            padding: 160px 50px 100px;
+            padding: 140px 40px 100px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: #464646;
-            color: #fff;
+            background: #111;
         }
 
         .magazine-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+        }
+        .magazine-header p {
+            color: #555;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 10px;
         }
 
-        /* Interactive Viewer */
+        /* ── Viewer Top Bar ── */
+        .viewer-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 980px;
+            padding: 0 0 14px;
+        }
+        .active-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #444;
+        }
+        .active-label strong { color: #bbb; font-weight: 400; }
+
+        .open-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .open-btn:hover { background: #fff; color: #000; border-color: #fff; }
+
+        /* ── Main Iframe Viewer ── */
         .magazine-viewport {
             width: 100%;
-            max-width: 900px;
-            aspect-ratio: 4/3;
-            background: #161616;
+            max-width: 980px;
+            aspect-ratio: 16 / 10;
+            background: #0a0a0a;
             border: 1px solid #222;
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            border-radius: 8px;
             overflow: hidden;
-            border-radius: 4px;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 50px 120px rgba(0,0,0,0.9);
         }
 
-        #pdf-render {
-            max-width: 100%;
-            max-height: 100%;
+        .magazine-viewport iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
             display: block;
         }
 
-        #loading-info {
+        /* Loading overlay */
+        .viewer-loading {
             position: absolute;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #555;
-        }
-
-        /* Reader Controls */
-        .reader-controls {
-            margin: 30px 0;
+            inset: 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 20px;
-            background: #1a1a1a;
-            padding: 12px 25px;
-            border-radius: 40px;
-            border: 1px solid #333;
+            justify-content: center;
+            gap: 16px;
+            background: #0a0a0a;
+            z-index: 2;
+            transition: opacity 0.5s;
         }
-
-        .control-btn {
-            background: none;
-            border: 1px solid #444;
-            color: #fff;
-            padding: 6px 18px;
-            border-radius: 20px;
-            cursor: pointer;
+        .viewer-loading.hidden { opacity: 0; pointer-events: none; }
+        .spinner {
+            width: 30px; height: 30px;
+            border: 2px solid #2a2a2a;
+            border-top-color: #888;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .viewer-loading span {
             font-size: 10px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            transition: 0.3s ease;
+            color: #444;
         }
 
-        .control-btn:hover {
-            background: #fff;
-            color: #000;
-        }
-
-        .page-info {
-            font-size: 12px;
-            color: #777;
-            font-family: 'Lato', sans-serif;
-        }
-
-        /* Thumbnail Gallery */
+        /* ── Catalog Gallery ── */
         .pdf-gallery {
             width: 100%;
-            max-width: 1000px;
-            margin-top: 60px;
-            border-top: 1px solid #222;
-            padding-top: 40px;
+            max-width: 1100px;
+            margin-top: 70px;
+            border-top: 1px solid #1c1c1c;
+            padding-top: 50px;
+        }
+        .gallery-heading {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #3a3a3a;
+            margin-bottom: 32px;
         }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 40px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+            gap: 24px;
         }
 
+        /* ── Catalog Card ── */
         .pdf-thumb {
             cursor: pointer;
-            text-align: center;
-            transition: transform 0.4s ease;
-        }
-
-        .pdf-thumb .thumb-box {
-            width: 100%;
-            aspect-ratio: 1/1.4;
-            background: #1a1a1a;
-            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #1e1e1e;
+            background: #141414;
+            transition: transform 0.35s ease, border-color 0.3s;
             display: flex;
+            flex-direction: column;
+        }
+        .pdf-thumb:hover { transform: translateY(-8px); border-color: #3a3a3a; }
+        .pdf-thumb.active { border-color: #fff; }
+
+        /* Card cover */
+        .thumb-cover {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 100;
-            margin-bottom: 12px;
+            gap: 10px;
+            background: #1a1a1a;
             position: relative;
             overflow: hidden;
         }
-
-        .pdf-thumb.active .thumb-box {
-            border-color: #fff;
-            background: #252525;
+        .thumb-cover::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--accent, #444);
+            transition: background 0.3s;
         }
+        .pdf-thumb.active .thumb-cover { background: #202020; }
 
-        .pdf-thumb span {
-            font-size: 10px;
+        .thumb-icon { font-size: 2rem; line-height: 1; }
+        .thumb-initials {
+            font-size: 11px;
+            letter-spacing: 3px;
+            font-weight: 700;
+            color: var(--accent, #666);
             text-transform: uppercase;
+        }
+        .thumb-tag {
+            position: absolute;
+            bottom: 10px; right: 10px;
+            font-size: 8px;
             letter-spacing: 1px;
-            color: #666;
+            text-transform: uppercase;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #252525;
+            color: #444;
+            padding: 3px 8px;
+            border-radius: 20px;
         }
+        .pdf-thumb.active .thumb-tag { border-color: #555; color: #888; }
 
-        .pdf-thumb.active span {
-            color: #fff;
+        /* Card info */
+        .thumb-info { padding: 12px 14px 14px; }
+        .thumb-info h4 {
+            font-size: 11px;
+            font-weight: 400;
+            color: #888;
+            line-height: 1.4;
+            margin: 0 0 5px;
         }
+        .pdf-thumb.active .thumb-info h4 { color: #fff; }
+        .thumb-info span {
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #333;
+        }
+        .pdf-thumb.active .thumb-info span { color: #555; }
 
-        .pdf-thumb:hover {
-            transform: translateY(-10px);
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .magazine-section { padding: 110px 18px 70px; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
+            .viewer-topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
         }
     </style>
 </head>
@@ -159,69 +233,232 @@
 
     <main>
         <section class="magazine-section">
+
             <div class="magazine-header">
                 <h1 class="huge-name" style="font-size: clamp(3rem, 5vw, 5rem);">Print &<br>Publishing</h1>
+                <p>Select a catalog below to preview</p>
             </div>
 
+            <!-- Viewer top bar: current title + open link -->
+            <div class="viewer-topbar">
+                <div class="active-label">Viewing: <strong id="active-title">Facade Lighting — Green Surfer</strong></div>
+                <a id="open-link" class="open-btn" href="https://drive.google.com/file/d/186F2DLJkukfqrqyvEPxTB3h9YBYFDjre/view?usp=drive_link" target="_blank" rel="noopener">
+                    Open Full PDF
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M2 10L10 2M10 2H4M10 2V8"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Main iframe viewer -->
             <div class="magazine-viewport">
-                <div id="loading-info">Initializing Viewer...</div>
-                <canvas id="pdf-render"></canvas>
-            </div>
-
-            <div class="reader-controls">
-                <button class="control-btn" id="prev-page">Prev</button>
-                <div class="page-info">
-                    Page <span id="page-num" style="color:#fff">0</span> / <span id="page-count">0</span>
+                <div class="viewer-loading" id="viewer-loading">
+                    <div class="spinner"></div>
+                    <span>Loading Catalog...</span>
                 </div>
-                <button class="control-btn" id="next-page">Next</button>
+                <iframe
+                    id="pdf-iframe"
+                    src="https://drive.google.com/file/d/186F2DLJkukfqrqyvEPxTB3h9YBYFDjre/preview"
+                    allow="autoplay"
+                    allowfullscreen>
+                </iframe>
             </div>
 
+            <!-- Catalog Gallery -->
             <div class="pdf-gallery">
+                <p class="gallery-heading">All Catalogs &amp; Menus</p>
                 <div class="gallery-grid">
-                    <div class="pdf-thumb active" data-pdf="pdf/Facade lighting final By Green Surfer.pdf">
-                        <div class="thumb-box">GS</div>
-                        <span>Facade lighting final By Green Surfer</span>
+
+                    <!-- 1. Facade Lighting – Green Surfer -->
+                    <div class="pdf-thumb active"
+                         data-preview="https://drive.google.com/file/d/186F2DLJkukfqrqyvEPxTB3h9YBYFDjre/preview"
+                         data-link="https://drive.google.com/file/d/186F2DLJkukfqrqyvEPxTB3h9YBYFDjre/view?usp=drive_link"
+                         data-title="Facade Lighting — Green Surfer"
+                         style="--accent:#22c55e;">
+                        <div class="thumb-cover">
+                            <div class="thumb-icon">💡</div>
+                            <div class="thumb-initials">GS</div>
+                            <div class="thumb-tag">Lighting</div>
+                        </div>
+                        <div class="thumb-info">
+                            <h4>Facade Lighting</h4>
+                            <span>Green Surfer</span>
+                        </div>
                     </div>
 
-                    <div class="pdf-thumb" data-pdf="pdf/Vantra Lighting PPT (Interactive).pdf">
-                        <div class="thumb-box">LG</div>
-                        <span>Vantra Lighting PPT (Interactive)</span>
+                    <!-- 2. Green Surfer Catalogue 2024 -->
+                    <div class="pdf-thumb"
+                         data-preview="https://drive.google.com/file/d/1J0QPoIL2wmBpBVebPcGIu5Do6VlNioxU/preview"
+                         data-link="https://drive.google.com/file/d/1J0QPoIL2wmBpBVebPcGIu5Do6VlNioxU/view?usp=drive_link"
+                         data-title="Green Surfer Catalogue 2024"
+                         style="--accent:#16a34a;">
+                        <div class="thumb-cover">
+                            <div class="thumb-icon">📗</div>
+                            <div class="thumb-initials">GS</div>
+                            <div class="thumb-tag">Catalogue</div>
+                        </div>
+                        <div class="thumb-info">
+                            <h4>GS Catalogue 2024</h4>
+                            <span>Green Surfer</span>
+                        </div>
                     </div>
 
-                    <div class="pdf-thumb" data-pdf="pdf/Green Surfer Catalogue 2024.pdf">
-                        <div class="thumb-box">IM</div>
-                        <span>Green Surfer Catalogue 2024</span>
+                    <!-- 3. GS Price List 2024 -->
+                    <div class="pdf-thumb"
+                         data-preview="https://drive.google.com/file/d/1eY0VhG9foDpiU-9En9aG4WQw0hz6jrZE/preview"
+                         data-link="https://drive.google.com/file/d/1eY0VhG9foDpiU-9En9aG4WQw0hz6jrZE/view?usp=drive_link"
+                         data-title="GS Price List 2024"
+                         style="--accent:#4ade80;">
+                        <div class="thumb-cover">
+                            <div class="thumb-icon">📋</div>
+                            <div class="thumb-initials">GS</div>
+                            <div class="thumb-tag">Price List</div>
+                        </div>
+                        <div class="thumb-info">
+                            <h4>GS Price List 2024</h4>
+                            <span>Green Surfer</span>
+                        </div>
                     </div>
-                    <div class="pdf-thumb" data-pdf="pdf/IMG_Boscos Main Menu.pdf">
-                        <div class="thumb-box">IM</div>
-                        <span>food menu</span>
+
+                    <!-- 4. Vantra Lighting PPT -->
+                    <div class="pdf-thumb"
+                         data-preview="https://drive.google.com/file/d/1PaOTuStC3PqvOmTr39Z3G_pHMqtrRsJy/preview"
+                         data-link="https://drive.google.com/file/d/1PaOTuStC3PqvOmTr39Z3G_pHMqtrRsJy/view?usp=drive_link"
+                         data-title="Vantra Lighting PPT (Interactive)"
+                         style="--accent:#a78bfa;">
+                        <div class="thumb-cover">
+                            <div class="thumb-icon">🔆</div>
+                            <div class="thumb-initials">VL</div>
+                            <div class="thumb-tag">Presentation</div>
+                        </div>
+                        <div class="thumb-info">
+                            <h4>Vantra Lighting PPT</h4>
+                            <span>Vantra</span>
+                        </div>
                     </div>
-                    <div class="pdf-thumb" data-pdf="pdf/TGP MENU.pdf">
-                        <div class="thumb-box">IM</div>
-                        <span>food menu</span>
+
+                    <!-- 5. Vantra Catalog -->
+                    <div class="pdf-thumb"
+                         data-preview="https://drive.google.com/file/d/1Iw5KahFa6o4FVCtPZLZ6E5Pc8Ztj6R8n/preview"
+                         data-link="https://drive.google.com/file/d/1Iw5KahFa6o4FVCtPZLZ6E5Pc8Ztj6R8n/view?usp=drive_link"
+                         data-title="Vantra Catalog 2022"
+                         style="--accent:#8b5cf6;">
+                        <div class="thumb-cover">
+                            <div class="thumb-icon">📘</div>
+                            <div class="thumb-initials">VL</div>
+                            <div class="thumb-tag">Catalogue</div>
+                        </div>
+                        <div class="thumb-info">
+                            <h4>Vantra Catalog</h4>
+                            <span>Vantra</span>
+                        </div>
                     </div>
-                    <div class="pdf-thumb" data-pdf="pdf/Vantra Catalog_171122.pdf">
-                        <div class="thumb-box">IM</div>
-                        <span>Lighting catalog</span>
+
+                    <!-- 6. Vantra Product Price List 2024 -->
+                    <div class="pdf-thumb"
+                         data-preview="https://drive.google.com/file/d/19lz898Z0BddGebyVIO6c08vD8_RyM5ux/preview"
+                         data-link="https://drive.google.com/file/d/19lz898Z0BddGebyVIO6c08vD8_RyM5ux/view?usp=drive_link"
+                         data-title="Vantra Product Price List 2024"
+                         style="--accent:#c084fc;">
+                        <div class="thumb-cover">
+                            <div class="thumb-icon">📄</div>
+                            <div class="thumb-initials">VL</div>
+                            <div class="thumb-tag">Price List</div>
+                        </div>
+                        <div class="thumb-info">
+                            <h4>Vantra Price List 2024</h4>
+                            <span>Vantra</span>
+                        </div>
                     </div>
-                    <div class="pdf-thumb" data-pdf="pdf/Boscos Bar menu 12 june 2024.pdf">
-                        <div class="thumb-box">IM</div>
-                        <span>Bar Menu</span>
+
+                    <!-- 7. Boscos Bar Menu -->
+                    <div class="pdf-thumb"
+                         data-preview="https://drive.google.com/file/d/1vLj52WMj9xYf2YhHozIn9ZBt3K7ZWIsi/preview"
+                         data-link="https://drive.google.com/file/d/1vLj52WMj9xYf2YhHozIn9ZBt3K7ZWIsi/view?usp=drive_link"
+                         data-title="Boscos Bar Menu — June 2024"
+                         style="--accent:#fb923c;">
+                        <div class="thumb-cover">
+                            <div class="thumb-icon">🍹</div>
+                            <div class="thumb-initials">BC</div>
+                            <div class="thumb-tag">Bar Menu</div>
+                        </div>
+                        <div class="thumb-info">
+                            <h4>Boscos Bar Menu</h4>
+                            <span>June 2024</span>
+                        </div>
                     </div>
-                    <div class="pdf-thumb" data-pdf="pdf/Boscos Main menu 12 june 2024.pdf">
-                        <div class="thumb-box">IM</div>
-                        <span>Food Menu</span>
+
+                    <!-- 8. Boscos Main Menu -->
+                    <div class="pdf-thumb"
+                         data-preview="https://drive.google.com/file/d/1kEmfQ6ZtSBfTx3ahx8GoSXZu4jjyiiZc/preview"
+                         data-link="https://drive.google.com/file/d/1kEmfQ6ZtSBfTx3ahx8GoSXZu4jjyiiZc/view?usp=drive_link"
+                         data-title="Boscos Main Menu — June 2024"
+                         style="--accent:#f97316;">
+                        <div class="thumb-cover">
+                            <div class="thumb-icon">🍽️</div>
+                            <div class="thumb-initials">BC</div>
+                            <div class="thumb-tag">Food Menu</div>
+                        </div>
+                        <div class="thumb-info">
+                            <h4>Boscos Main Menu</h4>
+                            <span>June 2024</span>
+                        </div>
                     </div>
-                    <div class="pdf-thumb" data-pdf="pdf/Vantra Product Price list 2024.pdf">
-                        <div class="thumb-box">IM</div>
-                        <span>Price List</span>
+
+                    <!-- 9. IMG Boscos Main Menu -->
+                    <div class="pdf-thumb"
+                         data-preview="https://drive.google.com/file/d/150fMeFMzy7exQ_4KOniJX87wxSgGRbz_/preview"
+                         data-link="https://drive.google.com/file/d/150fMeFMzy7exQ_4KOniJX87wxSgGRbz_/view?usp=drive_link"
+                         data-title="Boscos Menu (Image Version)"
+                         style="--accent:#fbbf24;">
+                        <div class="thumb-cover">
+                            <div class="thumb-icon">🖼️</div>
+                            <div class="thumb-initials">BC</div>
+                            <div class="thumb-tag">Menu</div>
+                        </div>
+                        <div class="thumb-info">
+                            <h4>Boscos Menu (IMG)</h4>
+                            <span>Boscos</span>
+                        </div>
                     </div>
-                    <div class="pdf-thumb" data-pdf="pdf/PRICE LIST 2025.pdf">
-                        <div class="thumb-box">IM</div>
-                        <span>Price List</span>
+
+                    <!-- 10. TGP Menu -->
+                    <div class="pdf-thumb"
+                         data-preview="https://drive.google.com/file/d/1GMLHlLIdc4ikPJ8opcL1DYvaNKf0gAcP/preview"
+                         data-link="https://drive.google.com/file/d/1GMLHlLIdc4ikPJ8opcL1DYvaNKf0gAcP/view?usp=drive_link"
+                         data-title="TGP Menu"
+                         style="--accent:#f43f5e;">
+                        <div class="thumb-cover">
+                            <div class="thumb-icon">🍴</div>
+                            <div class="thumb-initials">TGP</div>
+                            <div class="thumb-tag">Food Menu</div>
+                        </div>
+                        <div class="thumb-info">
+                            <h4>TGP Menu</h4>
+                            <span>Restaurant</span>
+                        </div>
                     </div>
+
+                    <!-- 11. Price List 2025 -->
+                    <div class="pdf-thumb"
+                         data-preview="https://drive.google.com/file/d/1hoB-zKhcdoageb_2yt4seZlXOsmRFp-U/preview"
+                         data-link="https://drive.google.com/file/d/1hoB-zKhcdoageb_2yt4seZlXOsmRFp-U/view?usp=drive_link"
+                         data-title="Price List 2025"
+                         style="--accent:#38bdf8;">
+                        <div class="thumb-cover">
+                            <div class="thumb-icon">📊</div>
+                            <div class="thumb-initials">PL</div>
+                            <div class="thumb-tag">Price List</div>
+                        </div>
+                        <div class="thumb-info">
+                            <h4>Price List 2025</h4>
+                            <span>Catalogue</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
         </section>
     </main>
 
@@ -229,94 +466,43 @@
 
     <canvas id="pencilCanvas" style="position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;"></canvas>
 
-   <script>
-    // 1. PDF.js Setup
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    <script>
+        // ── Catalog switcher ──
+        const iframe      = document.getElementById('pdf-iframe');
+        const loading     = document.getElementById('viewer-loading');
+        const activeTitle = document.getElementById('active-title');
+        const openLink    = document.getElementById('open-link');
+        const thumbs      = document.querySelectorAll('.pdf-thumb');
 
-    let pdfDoc = null,
-        pageNum = 1,
-        pageIsRendering = false,
-        pageNumIsPending = null;
+        // Hide loading when iframe has loaded
+        iframe.addEventListener('load', () => {
+            setTimeout(() => loading.classList.add('hidden'), 300);
+        });
 
-    // Use the names you defined earlier to avoid conflict with script.js
-    const scale = 2,
-        pdfCanvas = document.querySelector('#pdf-render'),
-        pdfCtx = pdfCanvas.getContext('2d');
+        thumbs.forEach(thumb => {
+            thumb.addEventListener('click', function () {
+                // Active state
+                thumbs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
 
-    // 2. Main Render Function (FIXED NAMES HERE)
-    const renderPage = num => {
-        pageIsRendering = true;
-        document.getElementById('loading-info').style.display = 'block';
+                // Show loading overlay
+                loading.classList.remove('hidden');
 
-        pdfDoc.getPage(num).then(page => {
-            const viewport = page.getViewport({ scale });
-            
-            // Fixed: changed 'canvas' to 'pdfCanvas'
-            pdfCanvas.height = viewport.height;
-            pdfCanvas.width = viewport.width;
+                // Switch iframe
+                const preview = this.dataset.preview;
+                const link    = this.dataset.link;
+                const title   = this.dataset.title;
 
-            // Fixed: changed 'ctx' to 'pdfCtx'
-            const renderCtx = { canvasContext: pdfCtx, viewport };
+                iframe.src     = preview;
+                openLink.href  = link;
+                activeTitle.textContent = title;
 
-            page.render(renderCtx).promise.then(() => {
-                pageIsRendering = false;
-                document.getElementById('loading-info').style.display = 'none';
-                if (pageNumIsPending !== null) {
-                    renderPage(pageNumIsPending);
-                    pageNumIsPending = null;
-                }
+                // Scroll to viewer smoothly
+                document.querySelector('.magazine-viewport')
+                    .scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
-
-            document.querySelector('#page-num').textContent = num;
         });
-    };
-
-    const queueRenderPage = num => {
-        if (pageIsRendering) pageNumIsPending = num;
-        else renderPage(num);
-    };
-
-    // 3. Load PDF Function
-    const loadPDF = (path) => {
-        pageNum = 1;
-        document.getElementById('loading-info').innerHTML = "Loading PDF...";
-        document.getElementById('loading-info').style.display = 'block';
-
-        pdfjsLib.getDocument(path).promise.then(doc => {
-            pdfDoc = doc;
-            document.querySelector('#page-count').textContent = pdfDoc.numPages;
-            renderPage(pageNum);
-        }).catch(err => {
-            console.error(err);
-            document.getElementById('loading-info').innerHTML = "File not found.";
-        });
-    };
-
-    // 4. UI Event Listeners
-    document.querySelector('#prev-page').addEventListener('click', () => {
-        if (pageNum <= 1) return;
-        pageNum--;
-        queueRenderPage(pageNum);
-    });
-
-    document.querySelector('#next-page').addEventListener('click', () => {
-        if (pageNum >= pdfDoc.numPages) return;
-        pageNum++;
-        queueRenderPage(pageNum);
-    });
-
-    // 5. Gallery Switching
-    document.querySelectorAll('.pdf-thumb').forEach(thumb => {
-        thumb.addEventListener('click', function () {
-            document.querySelectorAll('.pdf-thumb').forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            loadPDF(this.getAttribute('data-pdf'));
-        });
-    });
-
-    // 6. Initial Load (Fixed path to match your first gallery item)
-    loadPDF("pdf/Facade lighting final By Green Surfer.pdf");
-</script>
+    </script>
 
     <script src="script.js"></script>
 </body>
